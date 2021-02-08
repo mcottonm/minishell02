@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 17:10:28 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 20:33:26 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 15:03:49 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	handle_sigint_c(int sig)
 {
 	(void)sig;
 	close(0);
-	write(1, "\b\b", 1);
-	write(1, "\b\b", 1);
-	write(1, " ", 1);
-	write(1, " ", 1);
-	write(1, "\n", 1);
+	write(1, "\b\b  \b\b\n", 8);
 }
 
 void	handle_sigint_sl(int sig)

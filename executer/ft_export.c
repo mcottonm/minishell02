@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:16:14 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 20:31:55 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:23:10 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	export_prnt(d_list *env_lst)
 	free(tmp_m);
 }
 
-void	on_sun(d_list *env_lst, char **avs)
+void	on_sun(d_list *env_lst, char *avs)
 {
 	t_env	*env;
 	d_list	*srch_lst;
 
-	if (!(srch_lst = srch_hide_key(env_lst, avs[1])))
-		set_env(env_lst, avs[1], 1);
+	if (!(srch_lst = srch_hide_key(env_lst, avs)))
+		set_env(env_lst, avs, 1);
 	else
 	{
 		env = srch_lst->content;
@@ -92,26 +92,28 @@ void	on_sun(d_list *env_lst, char **avs)
 void	ft_export(d_list *env_lst, char **avs, int *e_stat)
 {
 	char	*tmp;
+	int		i;
 
-	if (avs[1])
+	i = 0;
+	while (avs[++i])
 	{
-		tmp = avs[1];
+		tmp = avs[i];
 		while (*tmp)
 		{
 			if (!ft_isalnum(*tmp) && !ft_strchr(" =-", *tmp))
 			{
 				*e_stat = 1;
-				ft_putstr_fd(avs[1], 2);
+				ft_putstr_fd(avs[i], 2);
 				write(2, ": not a valid identifier\n", 25);
 				return ;
 			}
 			++tmp;
 		}
-		if (ft_strchr(avs[1], '='))
-			set_env(env_lst, avs[1], 1);
+		if (ft_strchr(avs[i], '='))
+			set_env(env_lst, avs[i], 1);
 		else
-			on_sun(env_lst, avs);
+			on_sun(env_lst, avs[i]);
 	}
-	else
+	if (!avs[1])
 		export_prnt(env_lst);
 }

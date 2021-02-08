@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alancel <alancel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:59:30 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 18:07:44 by alancel          ###   ########.fr       */
+/*   Updated: 2021/02/08 16:30:42 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void			cd_utils(const char *str)
 	}
 }
 
-static void		change_pwd(d_list *env)
+static void		change_pwd(d_list *env, const char *dir)
 {
 	char		*pwd;
 	char		*pwd_s;
 
 	pwd = pwd_util();
-	pwd_s = ft_strjoin("OLDPWD=", pwd);
+	pwd_s = ft_strjoin(dir, pwd);
 	set_env(env, pwd_s, 1);
 	free(pwd_s);
 	free(pwd);
@@ -42,7 +42,7 @@ void			ft_cd(char **argv, d_list *env)
 		ft_putendl_fd("No such file or directory", 1);
 		errno = 1;
 	}
-	change_pwd(env);
+	change_pwd(env, "OLDPWD=");
 	if (!argv[1])
 	{
 		home = env_vlm(env, "HOME");
@@ -53,9 +53,9 @@ void			ft_cd(char **argv, d_list *env)
 		}
 		else
 			chdir(home);
+		free(home);
 	}
 	else if (argv[1])
 		cd_utils(argv[1]);
-	change_pwd(env);
-	free(home);
+	change_pwd(env, "PWD=");
 }

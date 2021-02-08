@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:53:27 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 20:31:27 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:22:57 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,26 @@ void		set_vlm(void **lst_cont, t_env *new_env)
 	}
 }
 
-char		**crt_menv(d_list *env_lst)
+char		**crt_menv(d_list *tmp)
 {
 	char	**menv;
 	ssize_t	i;
 	t_env	*env;
-	d_list	*tmp;
 
 	i = 0;
-	tmp = env_lst;
 	i = ft_dlst_sz(tmp);
-	if (!(menv = (char**)malloc((i + 1) * sizeof(char*))))
+	if (!(menv = (char**)malloc((i + 2) * sizeof(char*))))
 		exit(errno);
 	i = -1;
-	while (tmp && (env = (t_env*)tmp->content) && -1 < ++i)
+	while (++i > -1 && tmp && (env = tmp->content))
 	{
 		if (ft_strcmp(env->key, "?"))
 		{
-			if (!env->vlm && (menv[i] = ft_strdup(env->key)))
-				exit(errno);
-			else if (!(menv[i] = ft_strjoin(env->key, env->vlm)))
+			if (!(menv[i] = ft_strjoin(env->key, env->vlm)))
 				exit(errno);
 		}
+		else
+			--i;
 		tmp = tmp->next;
 	}
 	menv[i] = 0;
@@ -71,6 +69,7 @@ t_env		*loc_env(const char *new)
 	{
 		if (!(my_env->key = ft_strdup(new)))
 			exit(errno);
+		my_env->vlm = 0;
 		return (my_env);
 	}
 	if (!(my_env->key = ft_substr(new, 0, eq_pntr - new)))

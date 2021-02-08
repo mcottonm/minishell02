@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:16:03 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 19:05:41 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 14:37:25 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	instr_and_frk(char *line, d_list *env_lst, int *e_stat)
 		instrs = stg_two(&tmp);
 		forker(instrs, env_lst, e_stat);
 		if (*e_stat == 3)
-			ft_putstr_fd("Quit: 3\n", 2);
+			ft_putstr_fd("^\\Quit: 3\n", 2);
 		del_instr_s(instrs);
 		qm = er_to_str(*e_stat);
 		set_env(env_lst, qm, 1);
