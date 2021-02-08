@@ -6,13 +6,13 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:04:21 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 03:59:36 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:03:03 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 
-d_list	*srch_key(d_list *env_lst, const char *new)
+t_d_list	*srch_key(t_d_list *env_lst, const char *new)
 {
 	t_env	*env;
 
@@ -30,7 +30,7 @@ d_list	*srch_key(d_list *env_lst, const char *new)
 	return (env_lst);
 }
 
-d_list	*srch_hide_key(d_list *env_lst, const char *new)
+t_d_list	*srch_hide_key(t_d_list *env_lst, const char *new)
 {
 	t_env	*env;
 
@@ -46,10 +46,10 @@ d_list	*srch_hide_key(d_list *env_lst, const char *new)
 	return (env_lst);
 }
 
-void	set_env(d_list *env_lst, const char *new, bool visible)
+void		set_env(t_d_list *env_lst, const char *new, bool visible)
 {
-	t_env	*new_env;
-	d_list	*lst;
+	t_env		*new_env;
+	t_d_list	*lst;
 
 	new_env = env_lst->content;
 	new_env = loc_env(new);
@@ -70,9 +70,9 @@ void	set_env(d_list *env_lst, const char *new, bool visible)
 		ft_dlstadd_back(&env_lst, ft_dlstnew(new_env));
 }
 
-void	unset_env(d_list *env_lst, const char *new)
+void		unset_env(t_d_list *env_lst, const char *new)
 {
-	d_list	*tmp;
+	t_d_list	*tmp;
 
 	if ((tmp = srch_key(env_lst, new)))
 		ft_dlstdelone(tmp, free_env);
@@ -80,7 +80,7 @@ void	unset_env(d_list *env_lst, const char *new)
 		ft_dlstdelone(env_lst, free_env);
 }
 
-char	*env_vlm(d_list *env_lst, const char *new)
+char		*env_vlm(t_d_list *env_lst, const char *new)
 {
 	t_env	*new_env;
 	char	*ret;

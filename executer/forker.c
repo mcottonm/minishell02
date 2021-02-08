@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:32:29 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 09:26:58 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:04:29 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-int		ft_strcmp(const char *str1, const char *str2)
+int			ft_strcmp(const char *str1, const char *str2)
 {
 	const unsigned char	*s1 = (unsigned char*)str1;
 	const unsigned char	*s2 = (unsigned char*)str2;
@@ -26,7 +26,7 @@ int		ft_strcmp(const char *str1, const char *str2)
 	return (*s1 - *s2);
 }
 
-int		*op_pips(int num_pips)
+static int	*op_pips(int num_pips)
 {
 	int		*pips;
 	int		fd[2];
@@ -45,7 +45,7 @@ int		*op_pips(int num_pips)
 	return (pips);
 }
 
-int		pps_pds(int **fds, int **pids, int cmd_num)
+static int	pps_pds(int **fds, int **pids, int cmd_num)
 {
 	*fds = op_pips(cmd_num - 1);
 	if (errno)
@@ -58,7 +58,7 @@ int		pps_pds(int **fds, int **pids, int cmd_num)
 	return (0);
 }
 
-int		porker(d_list *instr, d_list *env_lst, int *e_stat, int cmd_num)
+static int	porker(t_d_list *instr, t_d_list *env_lst, int *e_stat, int cmd_num)
 {
 	int				*fds;
 	int				*pids;
@@ -83,10 +83,10 @@ int		porker(d_list *instr, d_list *env_lst, int *e_stat, int cmd_num)
 	return (0);
 }
 
-int		forker(d_list *instr, d_list *env_lst, int *e_stat)
+int			forker(t_d_list *instr, t_d_list *env_lst, int *e_stat)
 {
 	int				cmd_num;
-	d_list			*tmp;
+	t_d_list		*tmp;
 	const int		stdin_cp = dup(0);
 	const int		stdout_cp = dup(1);
 

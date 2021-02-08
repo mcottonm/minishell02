@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 18:19:20 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 05:21:24 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:07:29 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void				stt_init(struct s_fsm_stt *stt, char *cmd)
 	stt->tk_list = NULL;
 }
 
-d_list					*tokenizer(char *cmd, int *e_stat)
+t_d_list				*tokenizer(char *cmd, int *e_stat)
 {
 	struct s_fsm_stt	stt;
 	int					f_idx;

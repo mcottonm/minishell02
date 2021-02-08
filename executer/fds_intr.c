@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:15:01 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 13:44:14 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:04:55 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-int		rdr_out(struct s_token *rdr)
+int			rdr_out(struct s_token *rdr)
 {
 	int	fd;
 
@@ -29,7 +29,7 @@ int		rdr_out(struct s_token *rdr)
 	return (0);
 }
 
-char	*redir(d_list *rdrs)
+char		*redir(t_d_list *rdrs)
 {
 	struct s_token	*rdr;
 	int				fd;
@@ -52,7 +52,7 @@ char	*redir(d_list *rdrs)
 	return (0);
 }
 
-void	cls_fds(int *fds, int num_cmd)
+void		cls_fds(int *fds, int num_cmd)
 {
 	int		i;
 	int		pips;
@@ -63,7 +63,7 @@ void	cls_fds(int *fds, int num_cmd)
 		close(fds[i++]);
 }
 
-int		duper(int *fds, int pnum, int cmd_num, void *rdr)
+static int	duper(int *fds, int pnum, int cmd_num, void *rdr)
 {
 	int	exc_fd;
 	int	excer_fd;
@@ -90,7 +90,7 @@ int		duper(int *fds, int pnum, int cmd_num, void *rdr)
 	return (0);
 }
 
-void	chld_prc(int pnum, int *fds, d_list *instr, d_list *env_lst)
+void		chld_prc(int pnum, int *fds, t_d_list *instr, t_d_list *env_lst)
 {
 	struct s_instrs	*s_instr;
 	char			*str;

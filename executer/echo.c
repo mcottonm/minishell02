@@ -6,13 +6,33 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:00:56 by alancel           #+#    #+#             */
-/*   Updated: 2021/02/07 06:37:28 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:59:04 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 
-int		check_flag(char *str)
+void		ft_env(t_d_list *env_lst)
+{
+	t_env	*env;
+
+	while (env_lst)
+	{
+		env = env_lst->content;
+		if (ft_strcmp(env->key, "?"))
+		{
+			if (env->vlm)
+			{
+				ft_putstr_fd(env->key, 1);
+				ft_putstr_fd(env->vlm, 1);
+				write(1, "\n", 1);
+			}
+		}
+		env_lst = env_lst->next;
+	}
+}
+
+static int	check_flag(char *str)
 {
 	int i;
 	int check;
@@ -33,7 +53,7 @@ int		check_flag(char *str)
 	return (1);
 }
 
-void	ft_echo(char **av)
+void		ft_echo(char **av)
 {
 	int flag;
 	int i;

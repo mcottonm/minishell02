@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:49:11 by alancel           #+#    #+#             */
-/*   Updated: 2021/02/07 06:38:10 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:47:39 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	ft_pwd(void)
 
 	str = pwd_util();
 	ft_putendl_fd(str, 1);
+	free(str);
 }

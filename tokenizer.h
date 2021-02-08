@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:46:28 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 14:22:57 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:00:40 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ struct					s_token
 
 struct					s_fsm_stt
 {
-	d_list				*tk_list;
+	t_d_list			*tk_list;
 	size_t				st;
 	size_t				i;
 	char				*in_str;
@@ -65,7 +65,7 @@ struct					s_instrs
 {
 	char				**avs;
 	enum e_token		type;
-	d_list				*rdr;
+	t_d_list			*rdr;
 };
 
 typedef bool			(*t_fltr)(const struct s_fsm_stt *);
@@ -77,15 +77,16 @@ extern t_hndl			g_hndls[];
 extern t_fnc			g_fncs[];
 
 void					del_token(void *a);
-void					sp_del(d_list **tks_in);
+void					sp_del(t_d_list **tks_in);
 void					add_n(struct s_fsm_stt *stt);
-void					mini_tok(char *str, d_list **tks);
-int						syntax_check(d_list *tks, int *e_stat);
+void					mini_tok(char *str, t_d_list **tks);
+int						syntax_check(t_d_list *tks, int *e_stat);
 void					tk_init(struct s_fsm_stt *stt, enum e_token tmp);
-d_list					*stg_two(d_list **tks);
-d_list					*tokenizer(char *str, int *e_stat);
-void					instr_crt(d_list **tks, d_list *env_list, int *stat);
-void					inc_fname(d_list *tks);
+t_d_list				*stg_two(t_d_list **tks);
+t_d_list				*tokenizer(char *str, int *e_stat);
+void					instr_crt(t_d_list **tks, t_d_list
+						*env_list, int *stat);
+void					inc_fname(t_d_list *tks);
 
 bool					flt_end(const struct s_fsm_stt *stt);
 void					hndl_end(struct s_fsm_stt *stt);

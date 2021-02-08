@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:51:27 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 10:47:37 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:29:01 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	del_instr(void *content)
 {
 	struct s_instrs	*instr;
 	int				i;
-	d_list			*tmp;
+	t_d_list		*tmp;
 
 	instr = content;
 	i = -1;
@@ -64,8 +64,8 @@ void	del_instr(void *content)
 
 void	del_instr_s(void *instrs)
 {
-	d_list	*tmp1;
-	d_list	*tmp2;
+	t_d_list	*tmp1;
+	t_d_list	*tmp2;
 
 	tmp1 = instrs;
 	while (tmp1)
@@ -76,9 +76,9 @@ void	del_instr_s(void *instrs)
 	}
 }
 
-void	del_tk_lst(d_list *tk_lst)
+void	del_tk_lst(t_d_list *tk_lst)
 {
-	d_list *tmp;
+	t_d_list *tmp;
 
 	tmp = tk_lst;
 	while (tmp)

@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:13:19 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 14:16:42 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:05:11 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-int		ft_exectr(void *instr_in, d_list *env_lst, int *e_stat)
+int			ft_exectr(void *instr_in, t_d_list *env_lst, int *e_stat)
 {
 	char			**menv;
 	char			*way;
@@ -36,11 +36,12 @@ int		ft_exectr(void *instr_in, d_list *env_lst, int *e_stat)
 		way = instr->avs[0];
 	menv = crt_menv(env_lst);
 	*e_stat = execve(way, instr->avs, menv);
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(instr->avs[0], 2);
 	return (*e_stat);
 }
 
-char	*pre_proc(char ***avs, d_list *env_lst, char ***menv, int *e_stat)
+static char	*pre_proc(char ***avs, t_d_list *env_lst, char ***menv, int *e_stat)
 {
 	char			*way;
 
@@ -66,7 +67,7 @@ char	*pre_proc(char ***avs, d_list *env_lst, char ***menv, int *e_stat)
 	return (way);
 }
 
-void	post_proc(char ***avs, char *way, char **menv, char **tmp)
+static void	post_proc(char ***avs, char *way, char **menv, char **tmp)
 {
 	if (errno != 42)
 	{
@@ -80,14 +81,15 @@ void	post_proc(char ***avs, char *way, char **menv, char **tmp)
 	}
 }
 
-void	frk_exit(char *str, int *e_stat)
+static void	frk_exit(char *str, int *e_stat)
 {
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	exit(*e_stat);
 }
 
-int		ft_exc_one(void *instr_in, d_list *env_lst, int *e_stat)
+int			ft_exc_one(void *instr_in, t_d_list *env_lst, int *e_stat)
 {
 	char			**menv;
 	char			**tmp;

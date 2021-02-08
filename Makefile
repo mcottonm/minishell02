@@ -12,6 +12,18 @@ C_CFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 C_LFLAGS =  $(CFLAGS) $(CPPFLAGS) -Wall -Wextra -Werror
 
 # **************************************************************************** #
+# D_LIST TARGET DESCRIPTION
+
+D_LIST_NAME = d_list
+D_LIST_PATH = d_list
+D_LIST_FILE = d_list/libd_list.a
+D_LIST_SRCS = d_list_add.c d_lists.c
+D_LIST_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(D_LIST_SRCS))
+D_LIST_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(D_LIST_SRCS))
+D_LIST_LIBS = 
+D_LIST_INCS = -I libft -I .
+
+# **************************************************************************** #
 # FT TARGET DESCRIPTION
 
 FT_NAME = ft
@@ -80,7 +92,7 @@ MINISHELL_FILE = ./minishell
 MINISHELL_SRCS = mshell.c
 MINISHELL_OBJS = $(patsubst %, $(OBJ_DIR)/%.o, $(MINISHELL_SRCS))
 MINISHELL_DEPS = $(patsubst %, $(OBJ_DIR)/%.d, $(MINISHELL_SRCS))
-MINISHELL_LIBS = -l env_u_err -L env_u_err -l sh -L . -l ft -L libft -l executer -L executer -l tok -L tok
+MINISHELL_LIBS = -l d_list -L d_list -l ft -L libft -l env_u_err -L env_u_err -l tok -L tok -l sh -L . -l executer -L executer
 MINISHELL_INCS = -I libft -I .
 
 # **************************************************************************** #
@@ -89,15 +101,25 @@ MINISHELL_INCS = -I libft -I .
 .PHONY: all re clean fclean
 .DEFAULT_GOAL = all
 
-all: $(FT_FILE) $(ENV_U_ERR_FILE) $(TOK_FILE) $(SH_FILE) $(EXECUTER_FILE) $(MINISHELL_FILE)
+all: $(D_LIST_FILE) $(FT_FILE) $(ENV_U_ERR_FILE) $(TOK_FILE) $(SH_FILE) $(EXECUTER_FILE) $(MINISHELL_FILE)
 
 clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -rf $(FT_FILE) $(ENV_U_ERR_FILE) $(TOK_FILE) $(SH_FILE) $(EXECUTER_FILE) $(MINISHELL_FILE)
+	@rm -rf $(D_LIST_FILE) $(FT_FILE) $(ENV_U_ERR_FILE) $(TOK_FILE) $(SH_FILE) $(EXECUTER_FILE) $(MINISHELL_FILE)
 
 re: fclean all
+
+$(D_LIST_FILE): $(D_LIST_OBJS)
+	@ar rc $(D_LIST_FILE) $(D_LIST_OBJS)
+	@ranlib $(D_LIST_FILE)
+	@printf 'Finished	\033[1;36m\033[7m$@ \033[0m\n\n'
+
+$(OBJ_DIR)/%.c.o: $(D_LIST_PATH)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
+	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(D_LIST_INCS) -o $@ -c $< -MMD
 
 $(FT_FILE): $(FT_OBJS)
 	@ar rc $(FT_FILE) $(FT_OBJS)
@@ -149,7 +171,7 @@ $(OBJ_DIR)/%.c.o: $(EXECUTER_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(EXECUTER_INCS) -o $@ -c $< -MMD
 
-$(MINISHELL_FILE): $(ENV_U_ERR_FILE) $(SH_FILE) $(FT_FILE) $(EXECUTER_FILE) $(TOK_FILE) $(MINISHELL_OBJS)
+$(MINISHELL_FILE): $(D_LIST_FILE) $(FT_FILE) $(ENV_U_ERR_FILE) $(TOK_FILE) $(SH_FILE) $(EXECUTER_FILE) $(MINISHELL_OBJS)
 	@$(C_COMPILER) $(C_LFLAGS) $(C_STANDART) -o $(MINISHELL_FILE) $(MINISHELL_OBJS)  $(MINISHELL_LIBS)
 	@printf 'Finished	\033[1;32m\033[7m$@ \033[0m\n\n'
 
@@ -158,4 +180,4 @@ $(OBJ_DIR)/%.c.o: $(MINISHELL_PATH)/%.c
 	@printf 'Compiling	\033[1;33m$<\033[0m ...\n'
 	@$(C_COMPILER) $(C_CFLAGS) $(C_STANDART) $(MINISHELL_INCS) -o $@ -c $< -MMD
 
--include $(FT_DEPS) $(ENV_U_ERR_DEPS) $(TOK_DEPS) $(SH_DEPS) $(EXECUTER_DEPS) $(MINISHELL_DEPS)
+-include $(D_LIST_DEPS) $(FT_DEPS) $(ENV_U_ERR_DEPS) $(TOK_DEPS) $(SH_DEPS) $(EXECUTER_DEPS) $(MINISHELL_DEPS)

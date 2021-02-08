@@ -6,13 +6,13 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/07 04:40:35 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 15:00:28 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:28:03 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-struct s_token *sp_check(d_list *tks)
+struct s_token	*sp_check(t_d_list *tks)
 {
 	struct s_token *next_tk;
 
@@ -27,7 +27,7 @@ struct s_token *sp_check(d_list *tks)
 	return (next_tk);
 }
 
-static bool check_next(d_list *tks)
+static bool		check_next(t_d_list *tks)
 {
 	struct s_token *next_tk;
 	struct s_token *tk;
@@ -46,7 +46,7 @@ static bool check_next(d_list *tks)
 	return (1);
 }
 
-static bool check_prev(d_list *tks)
+static bool		check_prev(t_d_list *tks)
 {
 	struct s_token *prev_tk;
 
@@ -65,7 +65,7 @@ static bool check_prev(d_list *tks)
 	return (1);
 }
 
-int syntax_check(d_list *tks, int *e_stat)
+int				syntax_check(t_d_list *tks, int *e_stat)
 {
 	struct s_token *tk;
 
@@ -74,7 +74,8 @@ int syntax_check(d_list *tks, int *e_stat)
 		tk = tks->content;
 		if (tk->t_stt & 0b1100111)
 		{
-			if ((!*e_stat || tk->t_stt & 0b111) && tk->t_stt != TK_COMMA && !check_next(tks))
+			if ((!*e_stat || tk->t_stt & 0b111)
+			&& tk->t_stt != TK_COMMA && !check_next(tks))
 			{
 				ft_erro(e_stat, tk->t_stt);
 				return (258);

@@ -6,13 +6,13 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 17:11:59 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 19:14:01 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:58:33 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-void			inc_fname(d_list *tks)
+void					inc_fname(t_d_list *tks)
 {
 	struct s_token	*nxt_tk;
 	struct s_token	*tk;
@@ -31,7 +31,7 @@ void			inc_fname(d_list *tks)
 		nxt_tk->t_stt = TK_FNAME;
 }
 
-char			**add_av(char **avs, char *str)
+static char				**add_av(char **avs, char *str)
 {
 	int		i;
 	char	**new;
@@ -42,7 +42,7 @@ char			**add_av(char **avs, char *str)
 	while (avs && avs[i])
 		++i;
 	i = i == 0 ? 1 : i;
-	if (!(new = (char**)calloc((i + 2),  sizeof(char*))))
+	if (!(new = (char**)calloc((i + 2), sizeof(char*))))
 		exit(errno);
 	i = -1;
 	while (avs && avs[++i])
@@ -57,7 +57,7 @@ char			**add_av(char **avs, char *str)
 	return (new);
 }
 
-void			add_rdr(d_list *tks, d_list **rdr)
+static void				add_rdr(t_d_list *tks, t_d_list **rdr)
 {
 	struct s_token	*rdr_vl;
 	struct s_token	*tk;
@@ -78,7 +78,7 @@ void			add_rdr(d_list *tks, d_list **rdr)
 	ft_dlstadd_back(rdr, ft_dlstnew(rdr_vl));
 }
 
-struct s_instrs	*init_instr(void)
+static struct s_instrs	*init_instr(void)
 {
 	struct s_instrs	*instr;
 
@@ -90,9 +90,9 @@ struct s_instrs	*init_instr(void)
 	return (instr);
 }
 
-d_list			*stg_two(d_list **tks)
+t_d_list				*stg_two(t_d_list **tks)
 {
-	d_list			*instrs;
+	t_d_list		*instrs;
 	struct s_instrs	*instr;
 	struct s_token	*tk;
 

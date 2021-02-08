@@ -6,17 +6,17 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 20:10:46 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 19:14:28 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:01:05 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-void			sp_del(d_list **tks_in)
+void			sp_del(t_d_list **tks_in)
 {
 	struct s_token	*tk;
-	d_list			*tmp;
-	d_list			*tks;
+	t_d_list		*tmp;
+	t_d_list		*tks;
 
 	tks = *tks_in;
 	while (tks && (tk = tks->content))
@@ -77,10 +77,10 @@ struct s_token	*mini_tok_sp(char **str)
 	return (n_tk);
 }
 
-void			mini_tok(char *str, d_list **tks)
+void			mini_tok(char *str, t_d_list **tks)
 {
-	d_list			*new_tks;
-	d_list			*tmp;
+	t_d_list		*new_tks;
+	t_d_list		*tmp;
 	struct s_token	*n_tk;
 
 	if (!str)

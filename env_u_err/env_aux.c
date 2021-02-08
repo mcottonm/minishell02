@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:53:27 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/08 16:22:57 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:03:26 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		set_vlm(void **lst_cont, t_env *new_env)
 	}
 }
 
-char		**crt_menv(d_list *tmp)
+char		**crt_menv(t_d_list *tmp)
 {
 	char	**menv;
 	ssize_t	i;
@@ -79,11 +79,11 @@ t_env		*loc_env(const char *new)
 	return (my_env);
 }
 
-d_list		*init_env(int ac, char **av, char **env)
+t_d_list	*init_env(int ac, char **av, char **env)
 {
-	d_list	*env_lst;
-	t_env	*my_env;
-	int		i;
+	t_d_list	*env_lst;
+	t_env		*my_env;
+	int			i;
 
 	(void)ac;
 	(void)av;

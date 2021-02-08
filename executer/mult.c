@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:18:41 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 17:38:11 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:55:17 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-char	last_chr(char *line)
+static char	last_chr(char *line)
 {
 	int		i;
 
@@ -27,11 +27,11 @@ char	last_chr(char *line)
 	return (0);
 }
 
-int		multiline(char **line, int *e_stat, d_list *env_lst)
+int			multiline(char **line, int *e_stat, t_d_list *env_lst)
 {
-	char	*line2;
-	char	*tmp;
-	d_list	*env;
+	char		*line2;
+	char		*tmp;
+	t_d_list	*env;
 
 	env = env_lst;
 	write(1, "$>", 2);

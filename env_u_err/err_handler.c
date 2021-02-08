@@ -6,7 +6,7 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:59:05 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 11:35:05 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:23:22 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		ft_erro(int *e_stat, int sim)
 
 int		error_check(char *line, int *e_stat)
 {
-	d_list	*lst;
+	t_d_list	*lst;
 
 	lst = tokenizer(line, e_stat);
 	if (!*e_stat)

@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:16:14 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/08 16:23:10 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:05:30 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-void	sort(char *menv[])
+static void	sort(char *menv[])
 {
 	int		i;
 	int		j;
@@ -40,7 +40,7 @@ void	sort(char *menv[])
 	}
 }
 
-void	export_prnt(d_list *env_lst)
+static void	export_prnt(t_d_list *env_lst)
 {
 	char	**tmp_m;
 	int		i;
@@ -66,10 +66,10 @@ void	export_prnt(d_list *env_lst)
 	free(tmp_m);
 }
 
-void	on_sun(d_list *env_lst, char *avs)
+static void	on_sun(t_d_list *env_lst, char *avs)
 {
-	t_env	*env;
-	d_list	*srch_lst;
+	t_env		*env;
+	t_d_list	*srch_lst;
 
 	if (!(srch_lst = srch_hide_key(env_lst, avs)))
 		set_env(env_lst, avs, 1);
@@ -89,25 +89,25 @@ void	on_sun(d_list *env_lst, char *avs)
 	}
 }
 
-void	ft_export(d_list *env_lst, char **avs, int *e_stat)
+void		ft_export(t_d_list *env_lst, char **avs, int *e_stat)
 {
-	char	*tmp;
+	int		c;
 	int		i;
 
 	i = 0;
 	while (avs[++i])
 	{
-		tmp = avs[i];
-		while (*tmp)
+		c = -1;
+		while (avs[i][++c] && avs[i][c] != '=')
 		{
-			if (!ft_isalnum(*tmp) && !ft_strchr(" =-", *tmp))
+			if (!ft_isalnum(avs[i][c]) && !ft_strchr("-", avs[i][c]))
 			{
 				*e_stat = 1;
+				ft_putstr_fd("minishell: export:", 2);
 				ft_putstr_fd(avs[i], 2);
 				write(2, ": not a valid identifier\n", 25);
 				return ;
 			}
-			++tmp;
 		}
 		if (ft_strchr(avs[i], '='))
 			set_env(env_lst, avs[i], 1);

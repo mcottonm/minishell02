@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:05:32 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/05 20:06:23 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:51:19 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-char		*next_dir(char *path, char *name)
+static char		*next_dir(char *path, char *name)
 {
 	char	*ret;
 	char	*ret2;
@@ -34,7 +34,7 @@ char		*next_dir(char *path, char *name)
 	return (ret2);
 }
 
-t_srch		*init_srch(char **avs, d_list *env_lst)
+static t_srch	*init_srch(char **avs, t_d_list *env_lst)
 {
 	t_srch			*srch;
 
@@ -50,7 +50,7 @@ t_srch		*init_srch(char **avs, d_list *env_lst)
 	return (srch);
 }
 
-char		*srch_prgm(char **avs, d_list *env_lst)
+char			*srch_prgm(char **avs, t_d_list *env_lst)
 {
 	struct stat		buf;
 	t_srch			*srch;

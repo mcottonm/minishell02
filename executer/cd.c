@@ -6,22 +6,22 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:59:30 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/08 16:30:42 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:49:58 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 
-void			cd_utils(const char *str)
+static void		cd_utils(const char *str)
 {
 	if (chdir(str) < 0)
 	{
-		ft_putendl_fd("No such file or directory\n", 1);
+		ft_putendl_fd("minishel: cd: No such file or directory\n", 1);
 		errno = 1;
 	}
 }
 
-static void		change_pwd(d_list *env, const char *dir)
+static void		change_pwd(t_d_list *env, const char *dir)
 {
 	char		*pwd;
 	char		*pwd_s;
@@ -33,13 +33,13 @@ static void		change_pwd(d_list *env, const char *dir)
 	free(pwd);
 }
 
-void			ft_cd(char **argv, d_list *env)
+void			ft_cd(char **argv, t_d_list *env)
 {
 	char		*home;
 
 	if (argv[3])
 	{
-		ft_putendl_fd("No such file or directory", 1);
+		ft_putendl_fd("minishel: cd: No such file or directory", 1);
 		errno = 1;
 	}
 	change_pwd(env, "OLDPWD=");
@@ -48,12 +48,14 @@ void			ft_cd(char **argv, d_list *env)
 		home = env_vlm(env, "HOME");
 		if (!home)
 		{
-			ft_putendl_fd("HOME is unset", 1);
+			ft_putendl_fd("minishel: cd: HOME is unset", 1);
 			errno = 1;
 		}
 		else
+		{
 			chdir(home);
-		free(home);
+			free(home);
+		}
 	}
 	else if (argv[1])
 		cd_utils(argv[1]);

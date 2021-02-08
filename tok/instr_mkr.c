@@ -6,13 +6,13 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 16:00:51 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 19:08:14 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:56:18 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-void	drf_vrl(d_list **tmp, d_list *env_list)
+static void	drf_vrl(t_d_list **tmp, t_d_list *env_list)
 {
 	struct s_token	*tk;
 	char			*c_tmp;
@@ -30,11 +30,11 @@ void	drf_vrl(d_list **tmp, d_list *env_list)
 	}
 }
 
-void	unn_words(d_list **tks_t)
+static void	unn_words(t_d_list **tks_t)
 {
 	struct s_token	*nxt_tk;
 	struct s_token	*tk;
-	d_list			*tmp;
+	t_d_list		*tmp;
 	char			*s_tmp;
 
 	tmp = *tks_t;
@@ -56,10 +56,10 @@ void	unn_words(d_list **tks_t)
 	}
 }
 
-int		stg_poltora(d_list **tmp1)
+static int	stg_poltora(t_d_list **tmp1)
 {
 	struct s_token	*tk;
-	d_list			*tmp;
+	t_d_list		*tmp;
 
 	tmp = *tmp1;
 	while (tmp)
@@ -78,9 +78,9 @@ int		stg_poltora(d_list **tmp1)
 	return (1);
 }
 
-void	stg_one(d_list **tks, d_list *env_list)
+static void	stg_one(t_d_list **tks, t_d_list *env_list)
 {
-	d_list			*tmp;
+	t_d_list		*tmp;
 	struct s_token	*tk;
 
 	tmp = *tks;
@@ -102,7 +102,7 @@ void	stg_one(d_list **tks, d_list *env_list)
 	*tks = tmp;
 }
 
-void	instr_crt(d_list **tks, d_list *env_list, int *e_stat)
+void		instr_crt(t_d_list **tks, t_d_list *env_list, int *e_stat)
 {
 	stg_one(tks, env_list);
 	*e_stat = 0;

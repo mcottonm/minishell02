@@ -6,14 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:16:03 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/08 14:37:25 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:59:53 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-void	after_fork(d_list **tmp, d_list **tk_lst, int *e_stat)
+static void	after_fork(t_d_list **tmp, t_d_list **tk_lst, int *e_stat)
 {
 	*e_stat = 0;
 	errno = 0;
@@ -27,11 +27,11 @@ void	after_fork(d_list **tmp, d_list **tk_lst, int *e_stat)
 		*tmp = (*tmp)->next;
 }
 
-void	instr_and_frk(char *line, d_list *env_lst, int *e_stat)
+void		instr_and_frk(char *line, t_d_list *env_lst, int *e_stat)
 {
-	d_list			*instrs;
-	d_list			*tk_lst;
-	d_list			*tmp;
+	t_d_list		*instrs;
+	t_d_list		*tk_lst;
+	t_d_list		*tmp;
 	char			*qm;
 
 	qm = 0;
@@ -53,7 +53,7 @@ void	instr_and_frk(char *line, d_list *env_lst, int *e_stat)
 	del_tk_lst(tk_lst);
 }
 
-int		pre_line(d_list *env_lst, int *e_stat, char **line)
+static int	pre_line(t_d_list *env_lst, int *e_stat, char **line)
 {
 	int		s_in;
 	char	*qm;
@@ -74,7 +74,7 @@ int		pre_line(d_list *env_lst, int *e_stat, char **line)
 	return (s_in);
 }
 
-void	post_line(char **line, int s_in)
+static void	post_line(char **line, int s_in)
 {
 	errno = errno == 42 ? 0 : errno;
 	if (0 > dup2(s_in, 0))
@@ -85,9 +85,9 @@ void	post_line(char **line, int s_in)
 	*line = 0;
 }
 
-int		main(int ac, char **av, char **env)
+int			main(int ac, char **av, char **env)
 {
-	d_list			*env_lst;
+	t_d_list		*env_lst;
 	char			*line;
 	int				e_stat;
 	int				s_in;

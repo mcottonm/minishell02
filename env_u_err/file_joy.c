@@ -6,13 +6,13 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:00:28 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/01/28 13:01:34 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 19:02:32 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 
-void	put_fenv(d_list *env_lst)
+void		put_fenv(t_d_list *env_lst)
 {
 	int		fd;
 	t_env	*env;
@@ -32,12 +32,12 @@ void	put_fenv(d_list *env_lst)
 	close(fd);
 }
 
-d_list	*take_fenv(d_list *env_lst)
+t_d_list	*take_fenv(t_d_list *env_lst)
 {
-	int		fd;
-	char	*str;
-	t_env	*env;
-	d_list	*tmp;
+	int			fd;
+	char		*str;
+	t_env		*env;
+	t_d_list	*tmp;
 
 	while (env_lst)
 	{

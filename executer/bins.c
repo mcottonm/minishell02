@@ -6,34 +6,14 @@
 /*   By: mcottonm <mcottonm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 13:03:28 by mcottonm          #+#    #+#             */
-/*   Updated: 2021/02/07 09:09:53 by mcottonm         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:23:49 by mcottonm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mshell.h"
 #include "../tokenizer.h"
 
-void	ft_env(d_list *env_lst)
-{
-	t_env	*env;
-
-	while (env_lst)
-	{
-		env = env_lst->content;
-		if (ft_strcmp(env->key, "?"))
-		{
-			if (env->vlm)
-			{
-				ft_putstr_fd(env->key, 1);
-				ft_putstr_fd(env->vlm, 1);
-				write(1, "\n", 1);
-			}
-		}
-		env_lst = env_lst->next;
-	}
-}
-
-char	exit_atoi(char *str)
+static char	exit_atoi(char *str)
 {
 	int			i;
 	char		at;
@@ -55,7 +35,7 @@ char	exit_atoi(char *str)
 	return (at * i);
 }
 
-int		exit_er(char **avs, bool *flag)
+static int	exit_er(char **avs, bool *flag)
 {
 	int i;
 
@@ -78,7 +58,7 @@ int		exit_er(char **avs, bool *flag)
 	return (1);
 }
 
-void	ft_exit(char **avs, d_list *env_lst)
+static void	ft_exit(char **avs, t_d_list *env_lst)
 {
 	bool			flag;
 	unsigned char	ret;
@@ -101,7 +81,7 @@ void	ft_exit(char **avs, d_list *env_lst)
 	exit(ret);
 }
 
-int		bin_fltr2(const char *bin, char **avs, int i, d_list *env_lst)
+static int	bin_fltr2(const char *bin, char **avs, int i, t_d_list *env_lst)
 {
 	int e_stat;
 
@@ -127,7 +107,7 @@ int		bin_fltr2(const char *bin, char **avs, int i, d_list *env_lst)
 	return (e_stat);
 }
 
-bool	bin_fltr(char **avs, d_list *env_lst, int *e_stat)
+bool		bin_fltr(char **avs, t_d_list *env_lst, int *e_stat)
 {
 	const char	*bins[] = {"export", "unset",
 	"env", "exit", "echo", "cd", "pwd", 0};
